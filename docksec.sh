@@ -20,14 +20,17 @@ BENCHMARK="v1.1.0-07-06-2017"
 
 HEADER="${red}
 ubuntu-update.sh Copyright (C) 2018 Ted LeRoy
-Script to remediate findings of Docker Bench for Security. Harden your Docker host.
+
+Script to remediate findings of Docker Bench for Security. 
+Harden your Docker host.
+
 This program comes with ABSOLUTELY NO WARRANTY see
 https://github.com/TedLeRoy/docksec/blob/master/LICENSE.md
 This is free software, and you are welcome to redistribute it
 under certain conditions.
-See  https://github.com/TedLeRoy/docksec/blob/master/LICENSE.md
-for details.${normal}
-"
+
+See https://github.com/TedLeRoy/docksec/blob/master/LICENSE.md 
+for details.${normal}"
 
 # Checkng whether running as root and exiting if not.
 
@@ -44,20 +47,20 @@ fi
 echo "$HEADER"
 
 # Print CIS Benchmark Version information
-echo "${green}Standards for this hardening script are 
-based on the CIS Docker Comunity Edition Benchmark $BENCHMARK.${normal}"
+echo "
+${green}Standards for this hardening script are based on the Center for Internet Security (CIS) Docker Comunity Edition Benchmark $BENCHMARK.${normal}"
 
 # Checking whether auditd is installed, and installing if not.
 
 PKGNAME="auditd"
+echo
 
-command -v $PKGNAME
+command -v $PKGNAME > /dev/null
 
 INSTALLED="${?}"
 
 if [[ "$INSTALLED" -eq 0 ]]
 then
-  echo
   echo "${green}$PKGNAME is already installed. Proceeding.${normal}"
 else
   echo "${green}Installing $PKGNAME."
@@ -88,17 +91,17 @@ echo "
 -w /usr/bin/docker-containerd -p rwxa -k docker
 -w /usr/bin/docker-runc -p rwxa -k docker
 " >> /etc/audit/audit.rules
-echo "auditd set
-"
-echo "
-Restarting auditd service
 
-"
+echo "
+${green}auditd set.${normal}"
+
+echo "
+Restarting auditd service."
+
 service auditd restart
 
 echo "
-${green}auditd service restarted.${normal}
-"
+${green}auditd service restarted.${normal}"
 
 echo "
 Creating a backup of /etc/default/docker."
@@ -114,11 +117,15 @@ echo "
 # Pointing docker to daemon.json file.
 DOCKER OPTS=\"--config-file=/etc/docker/daemon.json\"" >> /etc/default/docker
 
+# If /etc/docker/daemon.json file exists, create backup. Else continue and create file.
+
 if [[ -f /etc/docker/daemon.json ]];
 then
   echo "
   Creating a backup of /etc/docker/daemon.json file"
+
   cp /etc/docker/daemon.json /etc/docker/daemon.json.001
+
   echo "
   Backup has been created and can be found at /etc/docker/daemon.json.001"
 fi
@@ -150,6 +157,7 @@ Restarting docker service."
 service docker restart
 
 echo "
-Docker service restarted."
+${green}Docker service restarted.${normal}
+"
 
 exit 0
