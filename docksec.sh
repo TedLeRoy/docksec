@@ -60,17 +60,23 @@ then
   echo
   echo "${green}$PKGNAME is already installed. Proceeding.${normal}"
 else
-  echo "Installing $PKGNAME."
+  echo "${green}Installing $PKGNAME."
   apt-get install $PKGNAME -y
-  echo "$PKGNAME installed.
+  echo "$PKGNAME installed.${normal}
 "
 fi
 
 # Configure auditing for Docker directories, files, and services.
 # See CIS Benchmark 1.5 to 1.13
 
-echo
-echo "# Setting auditd to monitor docker files
+echo "
+Creating a backup of /etc/audit/audit.rules"
+cp /etc/audit/audit.rules /etc/audit/audit.rules.001
+echo "
+${green}Backup created and it can be found at /etc/audit/audit.rules.001.${normal}"
+
+echo "
+# Setting auditd to monitor docker files
 # Refer to findings 1.5 to 1.13
 -w /lib/systemd/system/docker.service -k docker
 -w /lib/systemd/system/docker.socket -k docker
@@ -84,25 +90,66 @@ echo "# Setting auditd to monitor docker files
 " >> /etc/audit/audit.rules
 echo "auditd set
 "
-echo "Restarting auditd service
+echo "
+Restarting auditd service
+
 "
 service auditd restart
 
-echo "${green}auditd service restarted.${normal}
+echo "
+${green}auditd service restarted.${normal}
 "
 
-# Setting networking to disallow inter-container network communication.
-# See CIS Benchmark 2.1 for Impact
-# Commenting out as restarting docker presently generates errors
+echo "
+Creating a backup of /etc/default/docker."
 
-#echo "${red}Restricting network traffic between containers.${normal}
-#"
-#service docker stop
-#dockerd --icc=false
-#service docker start
+cp /etc/default/docker /etc/default/docker.001
 
-#echo "${red}Network traffic between containers restricted.${normal}
-#"
-echo
+echo "
+${green}Backup created and it can be found at /etc/default/docker.001.${normal}"
 
+# Setting Docker to check daemon.json file
 
+echo "
+# Pointing docker to daemon.json file.
+DOCKER OPTS=\"--config-file=/etc/docker/daemon.json\"" >> /etc/default/docker
+
+if [[ -f /etc/docker/daemon.json ]];
+then
+  echo "
+  Creating a backup of /etc/docker/daemon.json file"
+  cp /etc/docker/daemon.json /etc/docker/daemon.json.001
+  echo "
+  Backup has been created and can be found at /etc/docker/daemon.json.001"
+fi
+
+# Adding relevant lines to /etc/docker/daemon.json file.
+
+echo "
+{
+\"icc\": false
+}
+{
+\"disable-legacy-registry\": true
+}
+{
+\"live-restore\": true
+}
+{
+\"userland-proxy\": false
+}
+{
+\"no-new-privileges\": true
+}" >> /etc/docker/daemon.json
+
+# Restart Docker Service
+
+echo "
+Restarting docker service."
+
+service docker restart
+
+echo "
+Docker service restarted."
+
+exit 0
