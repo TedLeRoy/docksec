@@ -78,19 +78,54 @@ cp /etc/audit/audit.rules /etc/audit/audit.rules.001
 echo "
 ${green}Backup created and it can be found at /etc/audit/audit.rules.001.${normal}"
 
-echo "
-# Setting auditd to monitor docker files
-# Refer to findings 1.5 to 1.13
--w /lib/systemd/system/docker.service -k docker
--w /lib/systemd/system/docker.socket -k docker
--w /usr/bin/docker -p rwxa -k docker
--w /var/lib/docker/ -p rwxa -k docker
--w /etc/docker/ -p rwxa -k docker
--w /etc/default/docker -p rwxa -k docker
--w /etc/docker/daemon.json -p rwxa -k docker
--w /usr/bin/docker-containerd -p rwxa -k docker
--w /usr/bin/docker-runc -p rwxa -k docker
-" >> /etc/audit/audit.rules
+# Make appropriate auditing entries to audit.rules if they do not exist already.
+
+if ! grep -q  "docker.service" /etc/audit/audit.rules;
+then
+  echo "# Setting auditd to monitor docker files."
+  echo "# Refer to CIS Benchmark for Docker CE items 1.5 to 1.13"
+  echo "-w /lib/systemd/system/docker.service -k docker" >> /etc/audit/audit.rules
+fi
+
+if ! grep -q  "docker.socket" /etc/audit/audit.rules;
+then
+  echo "-w /lib/systemd/system/docker.socket -k docker" >> /etc/audit/audit.rules
+fi
+
+if ! grep -q  "/usr/bin/docker" /etc/audit/audit.rules;
+then
+  echo "-w /usr/bin/docker -p rwxa -k docker" >> /etc/audit/audit.rules
+fi
+
+if ! grep -q  "/usr/bin/docker/" /etc/audit/audit.rules;
+then
+  echo "-w /usr/bin/docker/ -p rwxa -k docker" >> /etc/audit/audit.rules
+fi
+
+if ! grep -q  "/etc/docker/" /etc/audit/audit.rules;
+then
+  echo "-w /etc/docker/ -p rwxa -k docker" >> /etc/audit/audit.rules
+fi
+
+if ! grep -q  "/etc/default/docker" /etc/audit/audit.rules;
+then
+  echo "-w /etc/default/docker -p rwxa -k docker" >> /etc/audit/audit.rules
+fi
+
+if ! grep -q  "/etc/docker/daemon.json" /etc/audit/audit.rules;
+then
+  echo "-w /etc/docker/daemon.json -p rwxa -k docker" >> /etc/audit/audit.rules
+fi
+
+if ! grep -q  "/usr/bin/docker-containerd" /etc/audit/audit.rules;
+then
+  echo "-w /usr/bin/docker-containerd -p rwxa -k docker" >> /etc/audit/audit.rules
+fi
+
+if ! grep -q  "/usr/bin/docker-runc" /etc/audit/audit.rules;
+then
+  echo "-w /usr/bin/docker-runc -p rwxa -k docker" >> /etc/audit/audit.rules
+fi
 
 echo "
 ${green}auditd set.${normal}"
@@ -111,11 +146,13 @@ cp /etc/default/docker /etc/default/docker.001
 echo "
 ${green}Backup created and it can be found at /etc/default/docker.001.${normal}"
 
-# Setting Docker to check daemon.json file
+# Setting Docker to check daemon.json file if needed
 
-echo "
-# Pointing docker to daemon.json file.
+if ! grep -q  "daemon.json" /etc/default/docker;
+then
+  echo "# Pointing docker to daemon.json file.
 DOCKER OPTS=\"--config-file=/etc/docker/daemon.json\"" >> /etc/default/docker
+fi
 
 # If /etc/docker/daemon.json file exists, create backup. Else continue and create file.
 
@@ -130,24 +167,42 @@ then
   Backup has been created and can be found at /etc/docker/daemon.json.001"
 fi
 
-# Adding relevant lines to /etc/docker/daemon.json file.
+# Adding relevant lines to /etc/docker/daemon.json file if they are not already there.
 
-echo "
-{
+if ! grep -q  "icc" /etc/docker/daemon.json;
+then
+  echo "{
 \"icc\": false
-}
-{
+}" >> /etc/docker/daemon.json
+fi
+
+if ! grep -q  "disable-legacy" /etc/docker/daemon.json;
+then
+  echo "{
 \"disable-legacy-registry\": true
-}
-{
+}" >> /etc/docker/daemon.json
+fi
+
+if ! grep -q  "live-restore" /etc/docker/daemon.json;
+then
+  echo "{
 \"live-restore\": true
-}
-{
+}" >> /etc/docker/daemon.json
+fi
+
+if ! grep -q  "userland-proxy" /etc/docker/daemon.json;
+then
+  echo "{
 \"userland-proxy\": false
-}
-{
+}" >> /etc/docker/daemon.json
+fi
+
+if ! grep -q  "no-new-privileges" /etc/docker/daemon.json;
+then
+  echo "{
 \"no-new-privileges\": true
 }" >> /etc/docker/daemon.json
+fi
 
 # Restart Docker Service
 
