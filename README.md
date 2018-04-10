@@ -147,7 +147,7 @@ bash on Ubuntu 16.04.4 LTS Server running Docker 18.03.0-ce.
 
 * Run all checks, not just those indicated for a default Ubuntu/Docker install.
   * Only do needed checks, but don't skip steps, assuming they're already configured by default.
-* Accept a Docker Bench for Security log as input and secure based on that.
+* Optionally, accept a Docker Bench for Security log as input and secure based on that.
 * Improve efficiency in the code. 
   * For example, use config settings as input to a variable and iterate through the variable for checks and to update config.
 * Check for existence of backupfiles and create a rotation if new backups if files exist already.
