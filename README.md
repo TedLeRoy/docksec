@@ -112,7 +112,7 @@ I usually capture the warnings by grepping for them at run time.
 sudo ./docker-bench-security.sh | grep WARN
 ```
 
-You can still find the full history of each run at `~/my_projects/docker-bench-security/docker-bench-security.log`.
+You can still find the full history of each run of docker-bench-security.sh at `~/my_projects/docker-bench-security/docker-bench-security.log` if you want to see the full output, or see how it changes over time.
 
 ## Updates
 
