@@ -133,7 +133,7 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 
 ## Acknowledgements
 
-* The creators and maintainers of [Docker Bench for Security](https://github.com/docker/docker-bench-security/blob/master/MAINTAINERS), diogomonica, and konstruktoid
+* The creators and maintainers of [Docker Bench for Security](https://github.com/docker/docker-bench-security/blob/master/MAINTAINERS), [diogomonica](https://github.com/diogomonica), and [konstruktoid](https://github.com/konstruktoid).
 * The creators and maintainers of [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/), and the Docker CE Benchmark.
   * Author: Pravin Goyal
   * Editors: Thomas Sjogren, Rory McCune, NCC Group PLC
@@ -141,13 +141,15 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 
 ## Built With
 
-Ubuntu 16.04.4 LTS Server running Docker 18.03.0-ce and bash.
+bash on Ubuntu 16.04.4 LTS Server running Docker 18.03.0-ce.
 
 ## Future Goals
 
-* Run all checks, not just secure a default configuration.
+* Run all checks, not just those indicated for a default Ubuntu/Docker install.
+  * Only do needed checks, but don't skip steps, assuming they're already configured by default.
 * Accept a Docker Bench for Security log as input and secure based on that.
-* Improve efficiency in the code (separate lines of input into a variable and iterate through it for checks).
+* Improve efficiency in the code. 
+  * For example, use config settings as input to a variable and iterate through the variable for checks and to update config.
 * Check for existence of backupfiles and create a rotation if new backups if files exist already.
 
 ## Run Results
