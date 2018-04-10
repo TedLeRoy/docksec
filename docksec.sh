@@ -97,34 +97,34 @@ then
   echo "-w /usr/bin/docker -p rwxa -k docker" >> /etc/audit/audit.rules
 fi
 
-if ! grep -q  "/var/lib/docker/" /etc/audit/audit.rules;
+if ! grep -q  "/var/lib/docker" /etc/audit/audit.rules;
 then
-  echo "-w /var/lib/docker/ -p rwxa -k docker" >> /etc/audit/audit.rules
+  echo "-w /var/lib/docker -p rwxa -k docker" >> /etc/audit/audit.rules
 fi
 
-if ! grep -q  "/etc/docker/" /etc/audit/audit.rules;
+if ! grep -q  "/etc/docker" /etc/audit/audit.rules;
 then
-  echo "-w /etc/docker/ -p rwxa -k docker" >> /etc/audit/audit.rules
+  echo "-w /etc/docker -p rwxa -k docker" >> /etc/audit/audit.rules
 fi
 
 if ! grep -q  "/etc/default/docker" /etc/audit/audit.rules;
 then
-  echo "-w /etc/default/docker -p rwxa -k docker" >> /etc/audit/audit.rules
+  echo "-w /etc/default/docker -k docker" >> /etc/audit/audit.rules
 fi
 
 if ! grep -q  "/etc/docker/daemon.json" /etc/audit/audit.rules;
 then
-  echo "-w /etc/docker/daemon.json -p rwxa -k docker" >> /etc/audit/audit.rules
+  echo "-w /etc/docker/daemon.json -k docker" >> /etc/audit/audit.rules
 fi
 
 if ! grep -q  "/usr/bin/docker-containerd" /etc/audit/audit.rules;
 then
-  echo "-w /usr/bin/docker-containerd -p rwxa -k docker" >> /etc/audit/audit.rules
+  echo "-w /usr/bin/docker-containerd -k docker" >> /etc/audit/audit.rules
 fi
 
 if ! grep -q  "/usr/bin/docker-runc" /etc/audit/audit.rules;
 then
-  echo "-w /usr/bin/docker-runc -p rwxa -k docker" >> /etc/audit/audit.rules
+  echo "-w /usr/bin/docker-runc -k docker" >> /etc/audit/audit.rules
 fi
 
 echo "
