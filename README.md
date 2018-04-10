@@ -136,7 +136,7 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 * The creators and maintainers of [Docker Bench for Security](https://github.com/docker/docker-bench-security/blob/master/MAINTAINERS), [diogomonica](https://github.com/diogomonica), and [konstruktoid](https://github.com/konstruktoid).
 * The creators and maintainers of [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/), and the Docker CE Benchmark.
   * Author: Pravin Goyal
-  * Editors: Thomas Sjogren(a.k.a. [konstuktoid](https://github.com/konstruktoid), Rory McCune, NCC Group PLC
+  * Editors: Thomas Sjogren (a.k.a. [konstuktoid](https://github.com/konstruktoid)), Rory McCune, NCC Group PLC
   * Contributors: Brian Andrzejewski, Jordan Rakoske, GSEC, GCWN
 
 ## Built With
