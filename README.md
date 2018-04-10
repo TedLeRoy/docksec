@@ -19,3 +19,29 @@ CIS Benchmarks are available for free after you [register](https://www.cisecurit
 
 Since this is a repetitive task many people will ostensibly want to do, I'm scripting it and making it available to the community for review and input about features that will make it most useful.
 
+## [Project Goals](#project-goals)
+
+This project's goal is to allow the administrator of a Linux based Docker server to run a single script which will result in a configuration that fulfills the CIS Benchmarks for Docker CE.
+
+Settings beyond the control of the script, such as creating a separate partition for use by containers will be called out for the user to address.
+
+## Who This Is For
+
+docksec.sh is for administrators who want to create a consistent, secure environment to run their Docker containers from. A suggested use case is to run the script, check that it has secured the Docker host to the desired level by running [Docker Bench for Security](https://github.com/docker/docker-bench-security) against it, then using the hardened Docker host as a template for future implementations.
+
+## What It Does
+
+docksec.sh will do the following for you:
+
+* Check for auditd, and install it if it is not already present.
+* Configure auditing.
+  * It will add lines to /etc/audit/audit.rules to do this.
+  * It will restart the auditd service to make the changes take effect.
+* Add an entry to /etc/default/docker telling it to check the /etc/docker/daemon.json file for configuration settings.
+* Disable Inter Container Communications (icc) over the default bridge.
+* Disable Legacy Registries
+* Enable Live Restore
+* Disable Userland Proxy
+* Disable New Privileges for Containers
+* Restart the Docker service to make changes take effect.
+
