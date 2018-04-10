@@ -15,7 +15,7 @@ Several steps are required to take a default installation of Ubuntu 16.04, insta
 
 Hardening guidelines are from the CIS Benchmark for Docker Community Edition, version 1.1.0-07-06-2017.
 
-CIS Benchmarks are available for free after you [register](https://www.cisecurity.org/cis-benchmarks/). You'll have to browse to the files you're after when you receive the link to download in your email.
+CIS Benchmarks are available for free after you [register](https://www.cisecurity.org/cis-benchmarks/). You'll have to browse to the files you're when you receive the link to download in your email.
 
 Since securing the Docker host is a repetitive task many people will ostensibly want to do, I'm scripting it and making it available to the community to use and for review and input about features that will make it more useful.
 
