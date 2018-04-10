@@ -5,7 +5,7 @@ In its present form, the script will harden an Ubuntu 16.04 Docker Host so that 
 
 It should work on any Linux based Docker host, but has only been tested on Ubuntu 16.04 to date.
 
-The steps needed to harden the Docker Host were derived from the [Docker Bench for Security](https://github.com/docker/docker-bench-security) project on [GitHub](https://github.com/docker/docker-bench-security).
+The steps needed to harden the Docker Host were derived from running a scan using the [Docker Bench for Security](https://github.com/docker/docker-bench-security) script avialable on [GitHub](https://github.com/docker/docker-bench-security).
 
 This project is [licensed](https://github.com/TedLeRoy/docksec/blob/master/LICENSE) under GPLv3, and is available on [GitHub](https://github.com/TedLeRoy/docksec).
 
@@ -17,9 +17,9 @@ Hardening guidelines are from the CIS Benchmark for Docker Community Edition, ve
 
 CIS Benchmarks are available for free after you [register](https://www.cisecurity.org/cis-benchmarks/). You'll have to browse to the files you're after when you receive the link to download in your email.
 
-Since this is a repetitive task many people will ostensibly want to do, I'm scripting it and making it available to the community for review and input about features that will make it most useful.
+Since securing the Docker host is a repetitive task many people will ostensibly want to do, I'm scripting it and making it available to the community to use and for review and input about features that will make it more useful.
 
-## [Project Goals](#project-goals)
+## [Project Goal](#project-goal)
 
 This project's goal is to allow the administrator of a Linux based Docker server to run a single script which will result in a configuration that fulfills the CIS Benchmarks for Docker CE.
 
@@ -40,13 +40,15 @@ docksec.sh will do the following for you:
   * It will add lines to `/etc/audit/audit.rules` to do this.
   * It will restart the auditd service to make the changes take effect.
 * Add an entry to `/etc/default/docker` telling it to check the `/etc/docker/daemon.json` file for configuration settings.
-* Populate the `/etc/docker/daemon.json` file with entries that will do the following:
+* Create or populate the `/etc/docker/daemon.json` file with entries that will do the following:
   * Disable Inter Container Communications (icc) over the default bridge.
   * Disable Legacy Registries
   * Enable Live Restore
   * Disable Userland Proxy
   * Disable New Privileges for Containers
 * Restart the Docker service to make changes take effect.
+
+The script makes a backup of any files touched in the process, but it is crude at present and may clobber your backups if you use the same naming convention used by teh script, or if you run the script multiple times.
 
 As additional functionality is added, it will show up here.
 
@@ -58,7 +60,7 @@ You must understand your Docker environment and the implications of running this
 
 You must be prepared to troubleshoot any issues that arise from running the script.
 
-Everything the script does is available to you in the docksec.sh file, so you can refer to that when troubleshooting.
+Everything the script does is available to you in the docksec.sh file, so you can refer to that should troubleshooting be necessary.
 
 ## Installing
 
@@ -84,7 +86,7 @@ This will download the latest version.
 
 It is recommended that all containers be stopped prior to running the script as several services are restarted and reconfigured as the script is processed.
 
-To run the script, just be in the directory where docksec.sh resides and run it.
+To run the script, just be in the directory where `docksec.sh` resides and run it.
 
 ```
 cd ~my_projects/docksec
@@ -93,7 +95,7 @@ sudo ./docksec.sh
 
 ## Scan With Docker Bench For Security
 
-Make sure the system is secured to your liking by scanning with (Docker Bench for Security](https://github.com/docker/docker-bench-security).
+After running `docksec.sh`, make sure the system is secured to your liking by scanning with [Docker Bench for Security](https://github.com/docker/docker-bench-security).
 
 ```
 cd ~/my_projects
@@ -132,7 +134,6 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 ## Acknowledgements
 
 * The creators and maintainers of [Docker Bench for Security](https://github.com/docker/docker-bench-security/blob/master/MAINTAINERS), diogomonica, and konstruktoid
-
 * The creators and maintainers of [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks/), and the Docker CE Benchmark.
   * Author: Pravin Goyal
   * Editors: Thomas Sjogren, Rory McCune, NCC Group PLC
@@ -140,13 +141,14 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 
 ## Built With
 
-Ubuntu 16.04.4 LTS Server running docker 18.03.0-ce and bash.
+Ubuntu 16.04.4 LTS Server running Docker 18.03.0-ce and bash.
 
 ## Future Goals
 
-* I'd like to have the script run all checks, not just secure a default configuration.
-* I'd like to optionally have the script accept a Docker Bench for Security log as input and secure based on that.
-* Greater efficiency in the code (separate lines of input into a variable and iterate through it for checks).
+* Run all checks, not just secure a default configuration.
+* Accept a Docker Bench for Security log as input and secure based on that.
+* Improve efficiency in the code (separate lines of input into a variable and iterate through it for checks).
+* Check for existence of backupfiles and create a rotation if new backups if files exist already.
 
 ## Run Results
 
@@ -158,6 +160,6 @@ Here's a screenshot of the WARNING level findings after running docksec.sh:
 
 ![post-docsec.sh](https://image.ibb.co/cGWO9x/docker_post_new_script.png)
 
-Quie a reduction in findings, but I will be making it all green, and seeing how it impacts the environment and will tweak accordingly.
+Quite a reduction in findings, but I will be making it all green, and seeing how it impacts the environment and will tweak accordingly.
 
-If all green results in a very difficult to use environment, I'll be adding options to let you choose the security level you desire.
+If having all green findings result in a very difficult to use environment, I'll be adding options to let the user choose the security level you desire.
