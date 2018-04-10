@@ -119,12 +119,12 @@ fi
 
 if ! grep -q  "/usr/bin/docker-containerd" /etc/audit/audit.rules;
 then
-  echo "-w /usr/bin/docker-containerd -k docker" >> /etc/audit/audit.rules
+  echo "-w /usr/bin/docker-containerd -p rwxa -k docker" >> /etc/audit/audit.rules
 fi
 
 if ! grep -q  "/usr/bin/docker-runc" /etc/audit/audit.rules;
 then
-  echo "-w /usr/bin/docker-runc -k docker" >> /etc/audit/audit.rules
+  echo "-w /usr/bin/docker-runc -p rwxa -k docker" >> /etc/audit/audit.rules
 fi
 
 echo "
