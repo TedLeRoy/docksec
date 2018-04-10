@@ -109,7 +109,7 @@ fi
 
 if ! grep -q  "/etc/default/docker" /etc/audit/audit.rules;
 then
-  echo "-w /etc/default/docker -k docker" >> /etc/audit/audit.rules
+  echo "-w /etc/default/docker -p rwxa -k docker" >> /etc/audit/audit.rules
 fi
 
 if ! grep -q  "/etc/docker/daemon.json" /etc/audit/audit.rules;
@@ -159,12 +159,12 @@ fi
 if [[ -f /etc/docker/daemon.json ]];
 then
   echo "
-  Creating a backup of /etc/docker/daemon.json file"
+Creating a backup of /etc/docker/daemon.json file"
 
   cp /etc/docker/daemon.json /etc/docker/daemon.json.001
 
   echo "
-  Backup has been created and can be found at /etc/docker/daemon.json.001"
+Backup has been created and can be found at /etc/docker/daemon.json.001"
 fi
 
 # Adding relevant lines to /etc/docker/daemon.json file if they are not already there.
