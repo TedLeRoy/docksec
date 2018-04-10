@@ -82,8 +82,8 @@ ${green}Backup created and it can be found at /etc/audit/audit.rules.001.${norma
 
 if ! grep -q  "docker.service" /etc/audit/audit.rules;
 then
-  echo "# Setting auditd to monitor docker files."
-  echo "# Refer to CIS Benchmark for Docker CE items 1.5 to 1.13"
+  echo "# Setting auditd to monitor docker files." >> /etc/audit/audit.rules
+  echo "# Refer to CIS Benchmark for Docker CE items 1.5 to 1.13" >> /etc/audit/audit.rules
   echo "-w /lib/systemd/system/docker.service -k docker" >> /etc/audit/audit.rules
 fi
 
@@ -97,9 +97,9 @@ then
   echo "-w /usr/bin/docker -p rwxa -k docker" >> /etc/audit/audit.rules
 fi
 
-if ! grep -q  "/usr/bin/docker/" /etc/audit/audit.rules;
+if ! grep -q  "/var/lib/docker/" /etc/audit/audit.rules;
 then
-  echo "-w /usr/bin/docker/ -p rwxa -k docker" >> /etc/audit/audit.rules
+  echo "-w /var/lib/docker/ -p rwxa -k docker" >> /etc/audit/audit.rules
 fi
 
 if ! grep -q  "/etc/docker/" /etc/audit/audit.rules;
