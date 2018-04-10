@@ -64,7 +64,7 @@ then
   echo "${green}$PKGNAME is already installed. Proceeding.${normal}"
 else
   echo "${green}Installing $PKGNAME."
-  apt-get install $PKGNAME -y
+apt-get install $PKGNAME -y
   echo "$PKGNAME installed.${normal}
 "
 fi
@@ -130,8 +130,8 @@ fi
 echo "
 ${green}auditd set.${normal}"
 
-echo "
-Restarting auditd service."
+echo "${yellow}
+Restarting auditd service.${normal}"
 
 service auditd restart
 
@@ -161,7 +161,7 @@ then
   echo "
 Creating a backup of /etc/docker/daemon.json file"
 
-  cp /etc/docker/daemon.json /etc/docker/daemon.json.001
+cp /etc/docker/daemon.json /etc/docker/daemon.json.001
 
   echo "
 Backup has been created and can be found at /etc/docker/daemon.json.001"
@@ -206,8 +206,8 @@ fi
 
 # Restart Docker Service
 
-echo "
-Restarting docker service."
+echo "${yellow}
+Restarting docker service.${normal}"
 
 service docker restart
 
