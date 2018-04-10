@@ -162,6 +162,6 @@ Here's a screenshot of the WARNING level findings after running docksec.sh:
 
 ![post-docsec.sh](https://image.ibb.co/cGWO9x/docker_post_new_script.png)
 
-Quite a reduction in findings, but I will be making it all green, and seeing how it impacts the environment and will tweak accordingly.
+Quite a reduction in findings, but I will be addressing all WARNINGS, and seeing how it impacts the environment and will tweak accordingly.
 
-If having all green findings result in a very difficult to use environment, I'll be adding options to let the user choose the security level you desire.
+If mitigating all WARNING level findings results in a very difficult to use environment, I'll be adding options to let the user choose the security level desired.
