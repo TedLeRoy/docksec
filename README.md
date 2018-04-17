@@ -1,5 +1,5 @@
 # docksec
-Script to remediate findings of Docker Bench for Security. Harden your Docker host.
+A bash script to remediate findings of Docker Bench for Security. It helps you Harden your Docker host.
 
 In its present form, the script will harden an Ubuntu 16.04 Docker Host so that it complies with the majority of the Center for Internet Security (CIS) Benchmarks for Docker Community Edition (CE). 
 
