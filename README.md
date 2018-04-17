@@ -15,7 +15,7 @@ Several steps are required to take a default installation of Ubuntu 16.04, insta
 
 Hardening guidelines are from the CIS Benchmark for Docker Community Edition, version 1.1.0-07-06-2017.
 
-CIS Benchmarks are available for free after you [register](https://www.cisecurity.org/cis-benchmarks/). You'll have to browse to the files you're when you receive the link to download in your email.
+CIS Benchmarks are available for free after you [register](https://www.cisecurity.org/cis-benchmarks/). You'll have to browse to the CIS Benchmarks you're interested in when you receive the link to download in your email.
 
 Since securing the Docker host is a repetitive task many people will ostensibly want to do, I'm scripting it and making it available to the community to use and for review and input about features that will make it more useful.
 
@@ -162,6 +162,6 @@ Here's a screenshot of the WARNING level findings after running docksec.sh:
 
 ![post-docsec.sh](https://image.ibb.co/cGWO9x/docker_post_new_script.png)
 
-Quite a reduction in findings, but I will be addressing all WARNINGS, and seeing how it impacts the environment and will tweak accordingly.
+It went from 19 WARNINGS down to 7. Quite a reduction in findings, but I will be addressing all WARNINGS, and seeing how it impacts the environment and will tweak accordingly.
 
 If mitigating all WARNING level findings results in a very difficult to use environment, I'll be adding options to let the user choose the security level desired.
