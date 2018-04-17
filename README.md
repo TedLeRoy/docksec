@@ -145,9 +145,9 @@ The following items must be handled manually or configured for your environment:
 
 The number preceeding the item is the finding number in the CIS Benchmark for Docker CE. Please see the [CIS Benchmark](https://www.cisecurity.org/benchmark/docker/) for more information on how to remediate these items, or Docker CE [documentation](https://docs.docker.com/).
 
-## Informational Findings
+## Other Findings
 
-Once you have all WARNINGS addressed, have a look at informational findings to further secure your environment. They can also provide useful security related information.
+Once you have all Warnings [WARN] are addressed, have a look at informational findings [INFO] and notes [NOTE] to further secure your environment. They can also provide useful security related information.
 
 ## Author
 
