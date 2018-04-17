@@ -48,7 +48,7 @@ docksec.sh will do the following for you:
   * Disable New Privileges for Containers
 * Restart the Docker service to make changes take effect.
 
-The script makes a backup of any files touched in the process, but it is crude at present and may clobber your backups if you use the same naming convention used by teh script, or if you run the script multiple times.
+The script makes a backup of any files touched in the process, but it is crude at present and may clobber your backups of the files touched if you use the same naming convention used by the script, or if you run the script multiple times. The naming convention is <filename>.001
 
 As additional functionality is added, it will show up here.
 
@@ -150,7 +150,7 @@ bash on Ubuntu 16.04.4 LTS Server running Docker 18.03.0-ce.
 * Optionally, accept a Docker Bench for Security log as input and secure based on that.
 * Improve efficiency in the code. 
   * For example, use config settings as input to a variable and iterate through the variable for checks and to update config.
-* Check for existence of backupfiles and create a rotation if new backups if files exist already.
+* Check for existence of backupfiles and create a rotation of new backups if files exist already.
 
 ## Run Results
 
