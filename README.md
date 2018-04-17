@@ -29,7 +29,7 @@ Settings beyond the control of the script, such as creating a separate partition
 
 docksec.sh is for administrators who want to create a consistent, secure environment to run their Docker containers from. 
 
-A suggested use case is to run the script, check that it has secured the Docker host to the desired level by running [Docker Bench for Security](https://github.com/docker/docker-bench-security) against it, then using the hardened Docker host as a template for future implementations.
+A suggested use case is to run the script, check that it has secured the Docker host to the desired level by running [Docker Bench for Security](https://github.com/docker/docker-bench-security) against it, then use the hardened Docker host as a template for future implementations.
 
 ## What It Does
 
@@ -86,7 +86,7 @@ This will download the latest version.
 
 It is recommended that all containers be stopped prior to running the script as several services are restarted and reconfigured as the script is processed.
 
-To run the script, just be in the directory where `docksec.sh` resides and run it.
+To run the script, just be in the directory where `docksec.sh` resides and run it with sudo privileges.
 
 ```
 cd ~my_projects/docksec
@@ -122,6 +122,32 @@ If you installed a git clone using the steps above, just do a `git pull` to upda
 cd ~/my_projects/docksec
 git pull
 ```
+
+## Items Not Addressed
+
+Some items cannot readily be addressed by the script, such as creating a separate partition for Docker images. Addressing others would result in a configuration that is too generic to be useful and would result in a false sense of security. 
+
+The following items must be handled manually or configured for your environment:
+
+* 1.1 Ensure a separate partition for containers has been created.
+* 2.8 Enable user namespace support.
+  * This can break functionality and must be introduced carefully if enabled.
+* 2.11 Ensure that authorization for Docker client commands is enabled.
+  * This can break functionality and must be introduced carefully if enabled.
+* 2.12 Ensure centralized and remote logging is configured.
+  * This must be set up specific to your environment. Logging server must be provided.
+* 2.14 Ensure live restore is Enabled.
+  * I believe this is a bug as the relevant entry is added. Verifying and requesting fix by Docker.
+* 4.5 Ensure Content trust for Docker is Enabled.
+  * This can break functionality and must be introduced carefully if enabled.
+* 4.6 Ensure HEALTHCHECK instructions have been added to the container image.
+  * This must be configured specific to your environment with the functionality of the container considered.
+
+The number preceeding the item is the finding number in the CIS Benchmark for Docker CE. Please see the [CIS Benchmark](https://www.cisecurity.org/benchmark/docker/) for more information on how to remediate these items, or Docker CE [documentation](https://docs.docker.com/).
+
+## Informational Findings
+
+Once you have all WARNINGS addressed, have a look at informational findings to further secure your environment. They can also provide useful security related information.
 
 ## Author
 
