@@ -168,6 +168,10 @@ This project is licensed under the GNU General Public License - see the [LICENSE
 
 bash on Ubuntu 16.04.4 LTS Server running Docker 18.03.0-ce.
 
+## Shellcheck
+
+This script has been tested on [ShellCheck](https://www.shellcheck.net/) and runs clean. Try out ShellCheck for your scripts!
+
 ## Future Goals
 
 * Run all checks, not just those indicated for a default Ubuntu/Docker install.
