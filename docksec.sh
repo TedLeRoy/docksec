@@ -11,6 +11,7 @@
 red=$( tput setaf 1 );
 yellow=$( tput setaf 3 );
 green=$( tput setaf 2 );
+blue=$( tput setaf 4 )
 normal=$( tput sgr 0 );
 
 # Define CIS Benchmark Version Number
@@ -164,7 +165,7 @@ Creating a backup of /etc/docker/daemon.json file"
 cp /etc/docker/daemon.json /etc/docker/daemon.json.001
 
   echo "
-Backup has been created and can be found at /etc/docker/daemon.json.001"
+${green}Backup has been created and can be found at /etc/docker/daemon.json.001.${normal}"
 fi
 
 # Adding relevant lines to /etc/docker/daemon.json file if they are not already there.
@@ -212,7 +213,34 @@ Restarting docker service.${normal}"
 service docker restart
 
 echo "
-${green}Docker service restarted.${normal}
+${green}Docker service restarted.${normal}"
+
+# Print items not addressed statement
+
+echo "
+You've made great progress on securing your Docker host.
+
+${yellow}The following items are not addressed by this script.${normal}
+
+    1.1 Ensure a separate partition for containers has been created.
+    2.8 Enable user namespace support.
+        This can break functionality and must be introduced carefully if enabled.
+    2.11 Ensure that authorization for Docker client commands is enabled.
+        This can break functionality and must be introduced carefully if enabled.
+    2.12 Ensure centralized and remote logging is configured.
+        This must be set up specific to your environment. Logging server must be provided.
+    2.14 Ensure live restore is Enabled.
+        I believe this is a bug as the relevant entry is added. Verifying and requesting fix by Docker.
+    4.5 Ensure Content trust for Docker is Enabled.
+        This can break functionality and must be introduced carefully if enabled.
+    4.6 Ensure HEALTHCHECK instructions have been added to the container image.
+        This must be configured specific to your environment with the functionality of the container considered.
+
+See the CIS Benchmark for Docker CE and Docker Documentation for more information.
+
+Set the items that make sense for you in a way that works in your environment.
+
+Also look at Informational ${blue}[INFO]${normal} and Note ${yellow}[NOTE]${normal} findings from the Bench for Security Docker scan as they can help you further secure your Docker infrastructure.
 "
 
 exit 0
