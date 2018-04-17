@@ -23,7 +23,7 @@ Since securing the Docker host is a repetitive task many people will ostensibly 
 
 This project's goal is to allow the administrator of a Linux based Docker server to run a single script which will result in a configuration that fulfills the CIS Benchmarks for Docker CE.
 
-Settings beyond the control of the script, such as creating a separate partition for use by containers will be called out for the user to address.
+Settings beyond the control of the script, such as creating a separate partition for use by containers will be called out for the user to address manually.
 
 ## Who This Is For
 
@@ -48,23 +48,22 @@ docksec.sh will do the following for you:
   * Disable New Privileges for Containers
 * Restart the Docker service to make changes take effect.
 
-The script makes a backup of any files touched in the process, but it is crude at present and may clobber your backups of the files touched if you use the same naming convention used by the script, or if you run the script multiple times. The naming convention is \<filename\>.001
+The script makes a backup of any files touched in the process, but it is crude at present and may clobber your backups of the files touched if you use the same naming convention used by the script, or if you run the script multiple times. The naming convention is \<filename\>.001, and it is stored in the same directory as the original file.
 
 As additional functionality is added, it will show up here.
 
 ## Prerequisites
 
-You must have sudo permission to run this script and it must be run as root or with sudo permission.
+A few prerequisites must be in place for you to use this script.
 
-You must understand your Docker environment and the implications of running this script on your environment.
-
-You must be prepared to troubleshoot any issues that arise from running the script.
-
-Everything the script does is available to you in the docksec.sh file, so you can refer to that should troubleshooting be necessary.
+* You must have sudo permission to run this script and it must be run as root or with sudo permission.
+* You must understand your Docker environment and the implications of running this script on your environment.
+* You must be prepared to troubleshoot any issues that arise from running the script.
+* Everything the script does is available to you in the docksec.sh file, so you can refer to that should troubleshooting be necessary.
 
 ## Installing
 
-This project is under active development until it has the functionality I'm after, so the preferred method of running it is to create a local clone of the git repository.
+This project is under active development until it has the functionality defined in the [Project Goal](#project-goal), so the preferred method of running it is to create a local clone of the git repository.
 
 ```
 sudo apt install git
@@ -104,7 +103,7 @@ cd docker-bench-security
 sudo ./docker-bench-security.sh
 ```
 
-Observe the output, looking for Warnings \[WARN\] and address any found that you deem to need fixing.
+Observe the output, looking for Warnings \[WARN\] and address any found that you deem to need fixing. Some are not addressed by this script. See [Items Not Addressed](#items-not-addressed) below for more information.
 
 I usually capture the warnings by grepping for them at run time.
 
@@ -112,7 +111,7 @@ I usually capture the warnings by grepping for them at run time.
 sudo ./docker-bench-security.sh | grep WARN
 ```
 
-You can still find the full history of each run of docker-bench-security.sh at `~/my_projects/docker-bench-security/docker-bench-security.log` if you want to see the full output, or see how it changes over time.
+You can still find the full history of each run of docker-bench-security.sh in the file located at `~/my_projects/docker-bench-security/docker-bench-security.log` if you want to see the full output, or see how it changes over time.
 
 ## Updates
 
@@ -123,9 +122,9 @@ cd ~/my_projects/docksec
 git pull
 ```
 
-## Items Not Addressed
+## [Items Not Addressed](#items-not-addressed)
 
-Some items cannot readily be addressed by the script, such as creating a separate partition for Docker images. Addressing others would result in a configuration that is too generic to be useful and would result in a false sense of security. 
+Some items cannot be readily be addressed by the script, such as creating a separate partition for Docker images. Some would have to be configured to fit your environment and needs to be useful. Addressing others would result in a configuration that is too generic to be useful and would result in a false sense of security. 
 
 The following items must be handled manually or configured for your environment:
 
@@ -147,7 +146,7 @@ The number preceeding the item is the finding number in the CIS Benchmark for Do
 
 ## Other Findings
 
-Once you have all Warnings [WARN] are addressed, have a look at informational findings [INFO] and notes [NOTE] to further secure your environment. They can also provide useful security related information.
+Once all Warnings [WARN] are addressed, have a look at informational findings [INFO] and notes [NOTE] to further secure your environment. They can also provide useful security related information.
 
 ## Author
 
@@ -188,6 +187,5 @@ Here's a screenshot of the WARNING level findings after running docksec.sh:
 
 ![post-docsec.sh](https://image.ibb.co/cGWO9x/docker_post_new_script.png)
 
-It went from 19 WARNINGS down to 7. Quite a reduction in findings, but I will be addressing all WARNINGS, and seeing how it impacts the environment and will tweak accordingly.
+It went from 19 WARNINGS down to 7. Quite a reduction in findings.
 
-If mitigating all WARNING level findings results in a very difficult to use environment, I'll be adding options to let the user choose the security level desired.
